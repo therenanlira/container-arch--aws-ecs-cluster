@@ -6,7 +6,8 @@ workspaces = {
 
     project_name = "container-arch"
 
-    ssm_vpc_id = "/container-arch/dev/vpc_id"
+    ssm_vpc_id   = "/container-arch/dev/vpc_id"
+    ssm_vpc_cidr = "/container-arch/dev/vpc_cidr"
     ssm_public_subnet_ids = {
       "us-east-1a" = "/container-arch/dev/us-east-1a/public_subnet_ids"
       "us-east-1b" = "/container-arch/dev/us-east-1b/public_subnet_ids"
@@ -22,5 +23,28 @@ workspaces = {
       "us-east-1b" = "/container-arch/dev/us-east-1b/data_subnet_ids"
       "us-east-1c" = "/container-arch/dev/us-east-1c/data_subnet_ids"
     }
+
+    load_balancer_internal = false
+    load_balancer_type     = "application"
+
+    ecs_ami           = "ami-0d4c2549219f5d7f6"
+    ecs_instance_type = "t3a.large"
+    ecs_volume_size   = "50"
+    ecs_volume_type   = "gp3"
+
+    ecs_autoscaling = {
+      on_demand = {
+        minimum = "2"
+        maximum = "4"
+        desired = "3"
+      }
+      spot = {
+        minimum = "2"
+        maximum = "4"
+        desired = "3"
+      }
+    }
+
+    capacity_provider_strategy = ["on_demand", "spot"]
   }
 }

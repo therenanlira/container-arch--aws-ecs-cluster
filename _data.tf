@@ -5,6 +5,10 @@ data "aws_ssm_parameter" "vpc_id" {
   name = local.workspace.ssm_vpc_id
 }
 
+data "aws_vpc" "vpc_cidr" {
+  id = data.aws_ssm_parameter.vpc_id.value
+}
+
 data "aws_ssm_parameter" "public_subnet_ids" {
   for_each = local.workspace.ssm_public_subnet_ids
   name     = each.value
