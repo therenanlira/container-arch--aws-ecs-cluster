@@ -1,5 +1,5 @@
 resource "aws_launch_template" "these" {
-  for_each = toset(local.workspace.capacity_provider_strategy)
+  for_each = toset(local.workspace.capacity_provider_strategies)
 
   name_prefix = "${local.workspace.project_name}--${replace(each.value, "_", "-")}--lt"
 
@@ -25,7 +25,7 @@ resource "aws_launch_template" "these" {
   }
 
   dynamic "instance_market_options" {
-    for_each = contains(toset(local.workspace.capacity_provider_strategy), "spot") ? [0] : []
+    for_each = contains(toset(local.workspace.capacity_provider_strategies), "spot") ? [0] : []
     content {
       market_type = "spot"
       spot_options {

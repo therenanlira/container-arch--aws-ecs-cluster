@@ -1,5 +1,5 @@
 resource "aws_autoscaling_group" "these" {
-  for_each = toset(local.workspace.capacity_provider_strategy)
+  for_each = toset(local.workspace.capacity_provider_strategies)
 
   name_prefix = "${local.workspace.project_name}--${replace(each.value, "_", "-")}--asg"
 
@@ -39,7 +39,7 @@ resource "aws_autoscaling_group" "these" {
 }
 
 resource "aws_ecs_capacity_provider" "these" {
-  for_each = toset(local.workspace.capacity_provider_strategy)
+  for_each = toset(local.workspace.capacity_provider_strategies)
 
   name = "${local.workspace.project_name}--${replace(each.value, "_", "-")}--cp"
 

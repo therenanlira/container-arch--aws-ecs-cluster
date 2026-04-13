@@ -19,7 +19,7 @@ resource "aws_ecs_cluster_capacity_providers" "main" {
   ]
 
   dynamic "default_capacity_provider_strategy" {
-    for_each = contains(toset(local.workspace.capacity_provider_strategy), "on_demand") ? [0] : []
+    for_each = contains(toset(local.workspace.capacity_provider_strategies), "on_demand") ? [0] : []
     content {
       capacity_provider = aws_ecs_capacity_provider.these["on_demand"].name
       weight            = 100
