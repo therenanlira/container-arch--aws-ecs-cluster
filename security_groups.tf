@@ -1,7 +1,7 @@
 resource "aws_security_group" "ecs_cluster" {
   name = "${local.workspace.project_name}--ecs-sg"
 
-  vpc_id = data.aws_ssm_parameter.vpc_id.value
+  vpc_id = data.terraform_remote_state.aws_vpc.outputs.id
 
   tags = {
     Name = "${local.workspace.project_name}--ecs-sg"
@@ -25,7 +25,7 @@ resource "aws_vpc_security_group_ingress_rule" "ecs_cluster_inbound_all_vpc" {
   security_group_id = aws_security_group.ecs_cluster.id
 
   ip_protocol = "-1"
-  cidr_ipv4   = data.aws_vpc.vpc_cidr.cidr_block
+  cidr_ipv4   = data.terraform_remote_state.aws_vpc.outputs.cidr_block
 
   tags = {
     Name = "${local.workspace.project_name}--ecs-sg inbound all from VPC"

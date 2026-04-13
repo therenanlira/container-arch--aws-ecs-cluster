@@ -2,7 +2,7 @@ resource "aws_route53_zone" "private" {
   name = "${var.project_name}.internal.com"
 
   vpc {
-    vpc_id = data.aws_ssm_parameter.vpc_id.value
+    vpc_id = data.aws_vpc.selected.id
   }
 }
 

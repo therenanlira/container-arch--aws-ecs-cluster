@@ -6,8 +6,6 @@ workspaces = {
 
     project_name = "container-arch"
 
-    ssm_vpc_id   = "/container-arch/dev/vpc_id"
-    ssm_vpc_cidr = "/container-arch/dev/vpc_cidr"
     ssm_public_subnet_ids = {
       "us-east-1a" = "/container-arch/dev/us-east-1a/public_subnet_ids"
       "us-east-1b" = "/container-arch/dev/us-east-1b/public_subnet_ids"
@@ -45,6 +43,6 @@ workspaces = {
       }
     }
 
-    capacity_provider_strategies = ["on_demand", "spot"]
+    capacity_provider_strategies = ["on_demand"] # ["on_demand", "spot"]
   }
 }

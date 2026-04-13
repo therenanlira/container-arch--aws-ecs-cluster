@@ -4,7 +4,7 @@ resource "aws_autoscaling_group" "these" {
   name_prefix = "${local.workspace.project_name}--${replace(each.value, "_", "-")}--asg"
 
   vpc_zone_identifier = [
-    for sub in data.aws_ssm_parameter.private_subnet_ids : sub.value
+    for sub in data.terraform_remote_state.aws_vpc.outputs.private_subnet_ids : sub
   ]
 
   desired_capacity = local.workspace.ecs_autoscaling[each.value].desired

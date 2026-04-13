@@ -1,11 +1,11 @@
-output "lb_dns" {
+output "lb_arn" {
   value = aws_lb.main.arn
 }
 
-output "ssm_lb_dns" {
-  value = aws_ssm_parameter.lb_arn.id
+output "lb_dns_name" {
+  value = aws_lb.main.dns_name
 }
 
-output "ssm_lb_listener" {
-  value = aws_ssm_parameter.lb_listener.id
+output "lb_listener_arn" {
+  value = aws_lb_listener.main.arn
 }

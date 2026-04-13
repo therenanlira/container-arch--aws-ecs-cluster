@@ -5,7 +5,7 @@ locals {
 resource "aws_security_group" "load_balancer_internal_sg" {
   name        = "${var.project_name}--${local.lb_internal_resource_name}--sg"
   description = "Security group for the load balancer"
-  vpc_id      = data.aws_ssm_parameter.vpc_id.value
+  vpc_id      = data.aws_vpc.selected.id
 
   egress {
     from_port   = 0

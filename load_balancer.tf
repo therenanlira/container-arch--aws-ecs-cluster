@@ -5,7 +5,7 @@
 resource "aws_security_group" "load_balancer" {
   name = "${local.workspace.project_name}--lb-sg"
 
-  vpc_id = data.aws_ssm_parameter.vpc_id.value
+  vpc_id = data.terraform_remote_state.aws_vpc.outputs.id
 
   tags = {
     Name = "${local.workspace.project_name}--lb-sg"
@@ -61,7 +61,7 @@ resource "aws_lb" "main" {
   internal           = local.workspace.load_balancer_internal
   load_balancer_type = local.workspace.load_balancer_type
 
-  subnets         = [for sub in data.aws_ssm_parameter.public_subnet_ids : sub.value]
+  subnets         = [for sub in data.terraform_remote_state.aws_vpc.outputs.public_subnet_ids : sub]
   security_groups = [aws_security_group.load_balancer.id]
 
   enable_cross_zone_load_balancing = false
