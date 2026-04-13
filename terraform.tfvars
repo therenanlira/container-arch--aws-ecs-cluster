@@ -14,6 +14,8 @@ workspaces = {
     ecs_volume_size   = "50"
     ecs_volume_type   = "gp3"
 
+    capacity_provider_strategies = ["on_demand"] # ["on_demand", "spot"]
+
     ecs_autoscaling = {
       on_demand = {
         minimum = "2"
@@ -26,7 +28,5 @@ workspaces = {
         desired = "3"
       }
     }
-
-    capacity_provider_strategies = ["on_demand"] # ["on_demand", "spot"]
   }
 }

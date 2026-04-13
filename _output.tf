@@ -1,15 +1,15 @@
 output "ecs_cluster_name" {
-  value = aws_ecs_cluster.main.name
+  value = module.ecs_cluster.ecs_cluster_name
 }
 
 output "lb_arn" {
-  value = aws_lb.main.arn
+  value = module.ecs_cluster.lb_arn
 }
 
 output "lb_dns_name" {
-  value = aws_lb.main.dns_name
+  value = module.ecs_cluster.lb_dns_name
 }
 
 output "lb_listener_arn" {
-  value = aws_lb_listener.main.arn
+  value = module.ecs_cluster.lb_listener_arn
 }
