@@ -1,3 +1,7 @@
+output "name" {
+  value = aws_ecs_cluster.main.name
+}
+
 output "lb_arn" {
   value = aws_lb.main.arn
 }
@@ -8,8 +12,4 @@ output "lb_dns_name" {
 
 output "lb_listener_arn" {
   value = aws_lb_listener.main.arn
-}
-
-output "ecs_cluster_name" {
-  value = aws_ecs_cluster.main.name
 }
