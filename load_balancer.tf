@@ -3,12 +3,12 @@
 ########################################
 
 resource "aws_security_group" "load_balancer" {
-  name = "${local.workspace.project_name}--lb-sg"
+  name = "${terraform.workspace}--${local.workspace.project_name}--lb-sg"
 
-  vpc_id = data.terraform_remote_state.aws_vpc.outputs.id
+  vpc_id = data.terraform_remote_state.aws_vpc.outputs.vpc_id
 
   tags = {
-    Name = "${local.workspace.project_name}--lb-sg"
+    Name = "${terraform.workspace}--${local.workspace.project_name}--lb-sg"
   }
 }
 
@@ -21,7 +21,7 @@ resource "aws_vpc_security_group_egress_rule" "load_balancer_outbound_all" {
   cidr_ipv4   = "0.0.0.0/0"
 
   tags = {
-    Name = "${local.workspace.project_name}--lb-sg outbound all"
+    Name = "${terraform.workspace}--${local.workspace.project_name}--lb-sg outbound all"
   }
 }
 
@@ -34,7 +34,7 @@ resource "aws_vpc_security_group_ingress_rule" "load_balancer_inbound_http" {
   cidr_ipv4   = "0.0.0.0/0"
 
   tags = {
-    Name = "${local.workspace.project_name}--lb-sg inbound http"
+    Name = "${terraform.workspace}--${local.workspace.project_name}--lb-sg inbound http"
   }
 }
 
@@ -47,7 +47,7 @@ resource "aws_vpc_security_group_ingress_rule" "load_balancer_inbound_https" {
   cidr_ipv4   = "0.0.0.0/0"
 
   tags = {
-    Name = "${local.workspace.project_name}--lb-sg inbound https"
+    Name = "${terraform.workspace}--${local.workspace.project_name}--lb-sg inbound https"
   }
 }
 
@@ -56,7 +56,7 @@ resource "aws_vpc_security_group_ingress_rule" "load_balancer_inbound_https" {
 ########################################
 
 resource "aws_lb" "main" {
-  name = "${local.workspace.project_name}--lb"
+  name = "${terraform.workspace}--${local.workspace.project_name}--lb"
 
   internal           = local.workspace.load_balancer_internal
   load_balancer_type = local.workspace.load_balancer_type
@@ -66,6 +66,10 @@ resource "aws_lb" "main" {
 
   enable_cross_zone_load_balancing = false
   enable_deletion_protection       = false
+
+  tags = {
+    Name = "${terraform.workspace}--${local.workspace.project_name}--lb"
+  }
 }
 
 resource "aws_lb_listener" "main" {
@@ -82,5 +86,9 @@ resource "aws_lb_listener" "main" {
       message_body = "Container Arch"
       status_code  = "200"
     }
+  }
+
+  tags = {
+    Name = "${terraform.workspace}--${local.workspace.project_name}--lb-listener"
   }
 }

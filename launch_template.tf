@@ -1,7 +1,7 @@
 resource "aws_launch_template" "these" {
   for_each = toset(local.workspace.capacity_provider_strategies)
 
-  name_prefix = "${local.workspace.project_name}--${replace(each.value, "_", "-")}--lt"
+  name_prefix = "${terraform.workspace}--${local.workspace.project_name}--${replace(each.value, "_", "-")}--lt"
 
   image_id               = local.workspace.ecs_ami
   instance_type          = local.workspace.ecs_instance_type
@@ -37,7 +37,7 @@ resource "aws_launch_template" "these" {
   tag_specifications {
     resource_type = "instance"
     tags = {
-      Name = "${local.workspace.project_name}--${replace(each.value, "_", "-")}--lt"
+      Name = "${terraform.workspace}--${local.workspace.project_name}--${replace(each.value, "_", "-")}--lt"
     }
   }
 

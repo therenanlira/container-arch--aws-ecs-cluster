@@ -1,5 +1,5 @@
 resource "aws_iam_role" "ecs_role" {
-  name = substr("${local.workspace.project_name}--ecs-role", 0, 63)
+  name = substr("${terraform.workspace}--${local.workspace.project_name}--ecs-role", 0, 63)
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -11,6 +11,10 @@ resource "aws_iam_role" "ecs_role" {
       }
     }]
   })
+
+  tags = {
+    Name = substr("${terraform.workspace}--${local.workspace.project_name}--ecs-role", 0, 63)
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "ec2_role" {
@@ -24,6 +28,10 @@ resource "aws_iam_role_policy_attachment" "ssm_role" {
 }
 
 resource "aws_iam_instance_profile" "ecs_role" {
-  name = "${local.workspace.project_name}--instance-profile"
+  name = substr("${terraform.workspace}--${local.workspace.project_name}--instance-profile", 0, 63)
   role = aws_iam_role.ecs_role.name
+
+  tags = {
+    Name = substr("${terraform.workspace}--${local.workspace.project_name}--instance-profile", 0, 63)
+  }
 }

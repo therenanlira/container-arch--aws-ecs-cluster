@@ -27,6 +27,6 @@ workspaces = {
       }
     }
 
-    capacity_provider_strategies = ["on_demand", "spot"]
+    capacity_provider_strategies = ["on_demand"] # ["on_demand", "spot"]
   }
 }

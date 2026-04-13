@@ -1,5 +1,5 @@
 resource "aws_ecs_cluster" "main" {
-  name = "${local.workspace.project_name}--ecs-cluster"
+  name = "${terraform.workspace}--${local.workspace.project_name}--ecs-cluster"
 
   setting {
     name  = "containerInsights"
@@ -7,6 +7,6 @@ resource "aws_ecs_cluster" "main" {
   }
 
   tags = {
-    Name = "${local.workspace.project_name}--ecs-cluster"
+    Name = "${terraform.workspace}--${local.workspace.project_name}--ecs-cluster"
   }
 }

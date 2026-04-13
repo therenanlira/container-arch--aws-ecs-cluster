@@ -1,7 +1,7 @@
 resource "aws_autoscaling_group" "these" {
   for_each = toset(local.workspace.capacity_provider_strategies)
 
-  name_prefix = "${local.workspace.project_name}--${replace(each.value, "_", "-")}--asg"
+  name_prefix = "${terraform.workspace}--${local.workspace.project_name}--${replace(each.value, "_", "-")}--asg"
 
   vpc_zone_identifier = [
     for sub in data.terraform_remote_state.aws_vpc.outputs.private_subnet_ids : sub
@@ -18,7 +18,7 @@ resource "aws_autoscaling_group" "these" {
 
   tag {
     key                 = "Name"
-    value               = "${local.workspace.project_name}--${replace(each.value, "_", "-")}--asg"
+    value               = "${terraform.workspace}--${local.workspace.project_name}--${replace(each.value, "_", "-")}--asg"
     propagate_at_launch = true
   }
 
@@ -41,7 +41,7 @@ resource "aws_autoscaling_group" "these" {
 resource "aws_ecs_capacity_provider" "these" {
   for_each = toset(local.workspace.capacity_provider_strategies)
 
-  name = "${local.workspace.project_name}--${replace(each.value, "_", "-")}--cp"
+  name = "${terraform.workspace}--${local.workspace.project_name}--${replace(each.value, "_", "-")}--cp"
 
   auto_scaling_group_provider {
     auto_scaling_group_arn = aws_autoscaling_group.these[each.value].arn
