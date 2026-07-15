@@ -1,32 +1,36 @@
 workspaces = {
   dev = {
-    allowed_accounts = ["923672208632"]
+    allowed_accounts = ["150100906110"]
     environment      = "dev"
-    aws_region       = "us-east-1"
+    aws_region       = "us-east-2"
 
     project_name = "container-arch"
 
-    load_balancer_internal = false
-    load_balancer_type     = "application"
+    capacity_provider_strategies = ["on_demand", "spot"]
 
-    ecs_ami           = "ami-0d4c2549219f5d7f6"
-    ecs_instance_type = "t3a.large"
+    ecs_instance_type = "t3.small"
     ecs_volume_size   = "50"
     ecs_volume_type   = "gp3"
 
-    capacity_provider_strategies = ["on_demand"] # ["on_demand", "spot"]
+    ecs_ami = {
+      us-east-1 = "ami-0d4c2549219f5d7f6"
+      us-east-2 = "ami-0a7c271c2a56771ee"
+    }
 
     ecs_autoscaling = {
       on_demand = {
         minimum = "2"
-        maximum = "4"
+        maximum = "3"
         desired = "3"
       }
       spot = {
         minimum = "2"
-        maximum = "4"
+        maximum = "3"
         desired = "3"
       }
     }
+
+    load_balancer_internal = false
+    load_balancer_type     = "application"
   }
 }
