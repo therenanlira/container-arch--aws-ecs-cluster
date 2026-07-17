@@ -13,8 +13,8 @@ workspaces = {
     ecs_volume_type   = "gp3"
 
     ecs_ami = {
-      us-east-1 = "ami-0d4c2549219f5d7f6"
-      us-east-2 = "ami-0a7c271c2a56771ee"
+      us-east-1 = "ami-01edba92f9036f76e"
+      us-east-2 = "ami-04ea4e8270c27626c"
     }
 
     ecs_autoscaling = {
