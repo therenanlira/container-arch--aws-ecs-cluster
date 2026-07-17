@@ -6,7 +6,7 @@ workspaces = {
 
     project_name = "container-arch"
 
-    capacity_provider_strategies = ["on_demand", "spot"]
+    capacity_provider_strategies = ["FARGATE", "FARGATE_SPOT"]
 
     ecs_instance_type = "t3.small"
     ecs_volume_size   = "50"
@@ -18,15 +18,25 @@ workspaces = {
     }
 
     ecs_autoscaling = {
-      on_demand = {
-        minimum = "2"
+      ON_DEMAND = {
+        minimum = "1"
         maximum = "3"
-        desired = "3"
+        desired = "1"
       }
-      spot = {
-        minimum = "2"
+      SPOT = {
+        minimum = "1"
         maximum = "3"
-        desired = "3"
+        desired = "1"
+      }
+      FARGATE = {
+        minimum = "1"
+        maximum = "3"
+        desired = "1"
+      }
+      FARGATE_SPOT = {
+        minimum = "1"
+        maximum = "3"
+        desired = "1"
       }
     }
 
